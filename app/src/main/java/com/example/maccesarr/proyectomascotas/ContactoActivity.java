@@ -1,5 +1,6 @@
 package com.example.maccesarr.proyectomascotas;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -33,12 +34,18 @@ public class ContactoActivity extends AppCompatActivity {
     }
 
     public void EnviarInformación (View view){
-
+        String mensajeNombre = nombre.getText().toString();
+        String mensajeMensaje = mensaje.getText().toString();
+        String miCorreo = correo.getText().toString();
+        Intent emailIntent = new Intent((Intent.ACTION_SEND));
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{miCorreo});
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, mensajeNombre);
+        emailIntent.putExtra(Intent.EXTRA_TEXT, mensajeMensaje);
+        emailIntent.setType("message/rfc822");
+        startActivity(Intent.createChooser(emailIntent, "Email"));
     }
 
-    public void displayMessage(String message) {
-        Toast.makeText(this,message, Toast.LENGTH_LONG).show();
-    }
+
 
 }
 
